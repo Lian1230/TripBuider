@@ -1,4 +1,4 @@
-require('./bootstrap');
+// require('./bootstrap');
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Main from './components/Main';

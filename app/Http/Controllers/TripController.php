@@ -40,6 +40,18 @@ class TripController extends Controller
     }
 
     /**
+     * Display the real airports in the world.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function airports()
+    {
+      $airports = json_decode(file_get_contents(__DIR__."/../Resources/airports.json"), true);
+      return ['airports' => $airports];
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

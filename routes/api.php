@@ -20,8 +20,8 @@ use Illuminate\Http\Request;
 // List trips
 Route::get('trips', 'TripController@trips');
 
-// List trips
-Route::get('flights', 'TripController@flights');
+// List airports
+Route::get('airports', 'TripController@airports');
 
 // List single trip
 Route::get('trip/{id}', 'TripController@trip');
