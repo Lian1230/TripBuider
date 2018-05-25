@@ -13,6 +13,46 @@ class TripController extends Controller
 {
     /**
      * @SWG\Get(
+     *  path="/airports",
+     *  operationId="airports",
+     *  tags={"Trip"},
+     *  summary="Get list of airports",
+     *  description="Get the real airports in the world",
+     * 
+     * @SWG\Parameter(
+     *  name="order",
+     *  description="order by, name or code",
+     *  required=false,
+     *  type="string",
+     *  in="query"
+     *  ),
+     * 
+     *  @SWG\Response(
+     *    response=200,
+     *    description="successful operation"
+     *  ),
+     * )
+     */
+    /**
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function airports(Request $request)
+    {
+      $order = $request->query('order');
+      $orderby = $order === 'name' ? 'nameAirport' : 'codeIataAirport';
+      $airports = json_decode(file_get_contents(__DIR__."/../Resources/airports.json"), true);
+      $sorted = array_values(array_sort($airports, function ($value) use ($orderby) {
+          return $value[$orderby];
+      }));
+
+      return ['airports' => $sorted];
+    }
+
+
+    /**
+     * @SWG\Get(
      *  path="/trips",
      *  operationId="trips",
      *  tags={"Trip"},
@@ -33,6 +73,7 @@ class TripController extends Controller
         return ['trips' => $trips];
     }
 
+
     /**
      * @SWG\Get(
      *  path="/trip/{id}",
@@ -40,6 +81,7 @@ class TripController extends Controller
      *  tags={"Trip"},
      *  summary="Get info of a trip",
      *  description="Get all details of a trip.",
+     * 
      * @SWG\Parameter(
      *  name="id",
      *  description="trip id",
@@ -47,6 +89,7 @@ class TripController extends Controller
      *  type="integer",
      *  in="path"
      *  ),
+     *
      *  @SWG\Response(
      *    response=200,
      *    description="successful operation"
@@ -73,6 +116,7 @@ class TripController extends Controller
      *  tags={"Trip"},
      *  summary="Get list of flights under a trip",
      *  description="Get the flights under a trip.",
+     * 
      * @SWG\Parameter(
      *  name="id",
      *  description="trip id",
@@ -80,7 +124,8 @@ class TripController extends Controller
      *  type="integer",
      *  in="path"
      *  ),
-     *  @SWG\Response(
+     * 
+     * @SWG\Response(
      *    response=200,
      *    description="successful operation"
      *  ),
@@ -102,12 +147,37 @@ class TripController extends Controller
     }
 
     /**
-     * @SWG\Get(
-     *  path="/airports",
-     *  operationId="airports",
+     * @SWG\POST(
+     *  path="/flight/add",
+     *  operationId="addFlight",
      *  tags={"Trip"},
-     *  summary="Get list of airports",
-     *  description="Get the real airports in the world",
+     *  summary="Add Flight",
+     *  description="Add a new flight into a trip",
+     * 
+     * @SWG\Parameter(
+     *  name="trip_id",
+     *  description="the id of the selected trip",
+     *  required=true,
+     *  type="integer",
+     *  in="header"
+     *  ),
+     * 
+     * @SWG\Parameter(
+     *  name="from",
+     *  description="leaving from",
+     *  required=true,
+     *  type="string",
+     *  in="header"
+     *  ),
+     * 
+     * @SWG\Parameter(
+     *  name="to",
+     *  description="going to",
+     *  required=true,
+     *  type="string",
+     *  in="header"
+     *  ),
+     * 
      *  @SWG\Response(
      *    response=200,
      *    description="successful operation"
@@ -115,34 +185,27 @@ class TripController extends Controller
      * )
      */
     /**
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function airports()
-    {
-      $airports = json_decode(file_get_contents(__DIR__."/../Resources/airports.json"), true);
-      return ['airports' => $airports];
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function addFlight(Request $request)
     {
-        $trip = $request->isMethod('put') ? Trip::findOrFail($request->trip_id) : new Trip;
+      $tripId = $request->header('tripId');
+      $from = $request->header('from');
+      $to = $request->header('to');
 
-        $trip->id = $request->input('trip_id');
-        $trip->title = $request->input('title');
-        $trip->body = $request->input('body');
+      $exist = DB::table('flights')
+        ->where('from', $from)
+        ->where('to', $to)
+        ->get();
 
-        if($trip->save()) {
-            return new TripResource($trip);
-        }
-        
+      $flightId = empty($exist[0])
+        ? DB::table('flights')->insertGetId(['from' => $from, 'to' => $to])
+        : $exist[0]->id;
+
+      DB::table('trip_join_flight')->insert(['trip_id' => $tripId, 'flight_id' => $flightId]);
+
+      return ['message' => 'success'];
     }
 
     /**

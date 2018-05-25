@@ -29,11 +29,8 @@ Route::get('trip/{id}', 'TripController@trip');
 // List all flight under a trip
 Route::get('trip/{id}/flights', 'TripController@tripFlights');
 
-// Create new trip
-Route::post('trip', 'TripController@store');
-
-// Update trip
-Route::put('trip', 'TripController@store');
+// Add flight to trip
+Route::post('flight/add', 'TripController@addFlight');
 
 // Delete trip
 Route::delete('trip/{id}', 'TripController@destroy');

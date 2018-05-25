@@ -16,13 +16,11 @@ class CreateTripsTable extends Migration
         Schema::create('trips', function (Blueprint $table) {
             $table->increments('id');
             $table->string('itinerary_number');
-            $table->timestamps();
         });
         Schema::create('flights', function (Blueprint $table) {
             $table->increments('id');
             $table->string('from');
             $table->string('to');
-            $table->timestamps();
         });
         Schema::create('trip_join_flight', function (Blueprint $table) {
             $table->increments('id');

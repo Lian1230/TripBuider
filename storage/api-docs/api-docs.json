@@ -14,6 +14,30 @@
         "http"
     ],
     "paths": {
+        "/airports": {
+            "get": {
+                "tags": [
+                    "Trip"
+                ],
+                "summary": "Get list of airports",
+                "description": "Get the real airports in the world",
+                "operationId": "airports",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "order by, name or code",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
         "/trips": {
             "get": {
                 "tags": [
@@ -77,14 +101,37 @@
                 }
             }
         },
-        "/airports": {
-            "get": {
+        "/flight/add": {
+            "post": {
                 "tags": [
                     "Trip"
                 ],
-                "summary": "Get list of airports",
-                "description": "Get the real airports in the world",
-                "operationId": "airports",
+                "summary": "Add Flight",
+                "description": "Add a new flight into a trip",
+                "operationId": "addFlight",
+                "parameters": [
+                    {
+                        "name": "trip_id",
+                        "in": "header",
+                        "description": "the id of the selected trip",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "from",
+                        "in": "header",
+                        "description": "leaving from",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "to",
+                        "in": "header",
+                        "description": "going to",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation"
