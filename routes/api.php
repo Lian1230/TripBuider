@@ -23,6 +23,9 @@ Route::get('trips', 'TripController@trips');
 // List airports
 Route::get('airports', 'TripController@airports');
 
+// Get details of a trip
+Route::get('trip/{id}', 'TripController@trip');
+
 // List all flight under a trip
 Route::get('trip/{id}/flights', 'TripController@tripFlights');
 

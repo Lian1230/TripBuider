@@ -1,0 +1,97 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Trip Builder API",
+        "description": "Manage flights and trips ",
+        "contact": {
+            "email": "liamlian@mail.com"
+        },
+        "version": "1.0.0"
+    },
+    "host": "localhost/fulltrip/public",
+    "basePath": "/api",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/trips": {
+            "get": {
+                "tags": [
+                    "Trip"
+                ],
+                "summary": "Get list of trips",
+                "description": "Returns list of trips",
+                "operationId": "trips",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/trip/{id}": {
+            "get": {
+                "tags": [
+                    "Trip"
+                ],
+                "summary": "Get info of a trip",
+                "description": "Get all details of a trip.",
+                "operationId": "trip",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "trip id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/trip/{id}/flights": {
+            "get": {
+                "tags": [
+                    "Trip"
+                ],
+                "summary": "Get list of flights under a trip",
+                "description": "Get the flights under a trip.",
+                "operationId": "tripFlights",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "trip id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/airports": {
+            "get": {
+                "tags": [
+                    "Trip"
+                ],
+                "summary": "Get list of airports",
+                "description": "Get the real airports in the world",
+                "operationId": "airports",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}

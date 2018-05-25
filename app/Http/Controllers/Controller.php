@@ -11,3 +11,20 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
+
+
+/**
+ * @SWG\Swagger(
+ *     basePath="/api",
+ *     schemes={"http"},
+ *     host=L5_SWAGGER_CONST_HOST,
+ *     @SWG\Info(
+ *         version="1.0.0",
+ *         title="Trip Builder API",
+ *         description="Manage flights and trips ",
+ *         @SWG\Contact(
+ *             email="liamlian@mail.com"
+ *         ),
+ *     )
+ * )
+ */
