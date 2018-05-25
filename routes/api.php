@@ -30,9 +30,9 @@ Route::get('trip/{id}', 'TripController@trip');
 Route::get('trip/{id}/flights', 'TripController@tripFlights');
 
 // Add flight to trip
-Route::post('flight/add', 'TripController@addFlight');
+Route::post('trip/{id}/add', 'TripController@addFlight');
 
-// Delete trip
-Route::delete('trip/{id}', 'TripController@destroy');
+// From flight from a trip
+Route::delete('trip/{id}/{flightId}', 'TripController@removeFlight');
 
 

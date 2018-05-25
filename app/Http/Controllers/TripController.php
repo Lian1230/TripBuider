@@ -17,11 +17,11 @@ class TripController extends Controller
      *  operationId="airports",
      *  tags={"Trip"},
      *  summary="Get list of airports",
-     *  description="Get the real airports in the world",
+     *  description="Get an alphabetical list of real world airports",
      * 
      * @SWG\Parameter(
      *  name="order",
-     *  description="order by, name or code",
+     *  description="order by, name or code (default to be code)",
      *  required=false,
      *  type="string",
      *  in="query"
@@ -57,7 +57,7 @@ class TripController extends Controller
      *  operationId="trips",
      *  tags={"Trip"},
      *  summary="Get list of trips",
-     *  description="Returns list of trips",
+     *  description="Get the list of current trips",
      *  @SWG\Response(
      *    response=200,
      *    description="successful operation"
@@ -79,8 +79,8 @@ class TripController extends Controller
      *  path="/trip/{id}",
      *  operationId="trip",
      *  tags={"Trip"},
-     *  summary="Get info of a trip",
-     *  description="Get all details of a trip.",
+     *  summary="Get info of a specific trip",
+     *  description="Get all details of a specific trip.",
      * 
      * @SWG\Parameter(
      *  name="id",
@@ -148,18 +148,18 @@ class TripController extends Controller
 
     /**
      * @SWG\POST(
-     *  path="/flight/add",
+     *  path="/trip/{id}/add",
      *  operationId="addFlight",
      *  tags={"Trip"},
      *  summary="Add Flight",
      *  description="Add a new flight into a trip",
      * 
      * @SWG\Parameter(
-     *  name="trip_id",
-     *  description="the id of the selected trip",
+     *  name="id",
+     *  description="the id of the trip to be added to",
      *  required=true,
      *  type="integer",
-     *  in="header"
+     *  in="path"
      *  ),
      * 
      * @SWG\Parameter(
@@ -188,9 +188,8 @@ class TripController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function addFlight(Request $request)
+    public function addFlight($tripId, Request $request)
     {
-      $tripId = $request->header('tripId');
       $from = $request->header('from');
       $to = $request->header('to');
 
@@ -209,18 +208,51 @@ class TripController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
+     * @SWG\DELETE(
+     *  path="/trip/{tripId}/{flightId}",
+     *  operationId="removeFlight",
+     *  tags={"Trip"},
+     *  summary="Remove Flight",
+     *  description="Remove a flight from a trip",
+     * 
+     * @SWG\Parameter(
+     *  name="tripId",
+     *  description="the id of the trip to be removed from",
+     *  required=true,
+     *  type="integer",
+     *  in="path"
+     *  ),
+     * 
+     * @SWG\Parameter(
+     *  name="flightId",
+     *  description="the if of the flight to be removed",
+     *  required=true,
+     *  type="integer",
+     *  in="path"
+     *  ),
+     * 
+     *  @SWG\Response(
+     *    response=200,
+     *    description="successful operation"
+     *  ),
+     * )
+     */
+    /**
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function removeFlight($tripId, $flightId)
     {
-        // Get trip
-        $trip = Trip::findOrFail($id);
-
-        if($trip->delete()) {
-            return new TripResource($trip);
-        }    
+      $isExist = DB::table('trip_join_flight')
+        ->where('trip_id', $tripId)
+        ->where('flight_id', $flightId)
+        ->exists();
+      
+      if($isExist) {
+        DB::table('trip_join_flight')
+          ->where('trip_id', $tripId)
+          ->where('flight_id', $flightId);
+      }
+      return ['message' => 'success'];
     }
 }

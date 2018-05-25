@@ -20,13 +20,13 @@
                     "Trip"
                 ],
                 "summary": "Get list of airports",
-                "description": "Get the real airports in the world",
+                "description": "Get an alphabetical list of real world airports",
                 "operationId": "airports",
                 "parameters": [
                     {
                         "name": "order",
                         "in": "query",
-                        "description": "order by, name or code",
+                        "description": "order by, name or code (default to be code)",
                         "required": false,
                         "type": "string"
                     }
@@ -44,7 +44,7 @@
                     "Trip"
                 ],
                 "summary": "Get list of trips",
-                "description": "Returns list of trips",
+                "description": "Get the list of current trips",
                 "operationId": "trips",
                 "responses": {
                     "200": {
@@ -58,8 +58,8 @@
                 "tags": [
                     "Trip"
                 ],
-                "summary": "Get info of a trip",
-                "description": "Get all details of a trip.",
+                "summary": "Get info of a specific trip",
+                "description": "Get all details of a specific trip.",
                 "operationId": "trip",
                 "parameters": [
                     {
@@ -101,7 +101,7 @@
                 }
             }
         },
-        "/flight/add": {
+        "/trip/{id}/add": {
             "post": {
                 "tags": [
                     "Trip"
@@ -111,9 +111,9 @@
                 "operationId": "addFlight",
                 "parameters": [
                     {
-                        "name": "trip_id",
-                        "in": "header",
-                        "description": "the id of the selected trip",
+                        "name": "id",
+                        "in": "path",
+                        "description": "the id of the trip to be added to",
                         "required": true,
                         "type": "integer"
                     },
@@ -130,6 +130,37 @@
                         "description": "going to",
                         "required": true,
                         "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/trip/{tripId}/{flightId}": {
+            "delete": {
+                "tags": [
+                    "Trip"
+                ],
+                "summary": "Remove Flight",
+                "description": "Remove a flight from a trip",
+                "operationId": "removeFlight",
+                "parameters": [
+                    {
+                        "name": "tripId",
+                        "in": "path",
+                        "description": "the id of the trip to be removed from",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "flightId",
+                        "in": "path",
+                        "description": "the if of the flight to be removed",
+                        "required": true,
+                        "type": "integer"
                     }
                 ],
                 "responses": {
