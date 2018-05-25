@@ -23,8 +23,8 @@ Route::get('trips', 'TripController@trips');
 // List airports
 Route::get('airports', 'TripController@airports');
 
-// List single trip
-Route::get('trip/{id}', 'TripController@trip');
+// List all flight under a trip
+Route::get('trip/{id}/flights', 'TripController@tripFlights');
 
 // Create new trip
 Route::post('trip', 'TripController@store');

@@ -28,7 +28,7 @@ class TripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function trip($id)
+    public function tripFlights($id)
     {
       $flights = DB::table('flights')
         ->join('trip_join_flight', function ($join) use ($id) {
