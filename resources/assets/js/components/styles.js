@@ -208,7 +208,7 @@ injectGlobal`
   .box {
     width: 70%;
     background: #FFF;
-    margin: 40px auto;
+    margin: 0 auto;
   }
 
   .box-shadow {
