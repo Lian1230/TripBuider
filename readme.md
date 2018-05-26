@@ -5,8 +5,8 @@
 ## Quick Start
 
 ### Prerequisites
-install Composor and Laravel 5.5
-Edit environment variables in .env and create a corresponding empty database
+#### install Composor and Laravel 5.5
+#### Edit environment variables in .env and create a corresponding empty database
 ``` bash
 
 # Install Dependencies
