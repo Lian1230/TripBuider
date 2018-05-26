@@ -24,6 +24,9 @@ php artisan key:generate
 # Install JS Dependencies
 npm install
 
+# Generate swagger doc
+php artisan l5-swagger:generate
+
 # Watch Files
 npm run watch
 ```
