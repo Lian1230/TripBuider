@@ -33,6 +33,6 @@ Route::get('trip/{id}/flights', 'TripController@tripFlights');
 Route::post('trip/{id}/add', 'TripController@addFlight');
 
 // From flight from a trip
-Route::delete('trip/{id}/{flightId}', 'TripController@removeFlight');
+Route::delete('trip/{id}/{refId}', 'TripController@removeFlight');
 
 

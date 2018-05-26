@@ -139,7 +139,7 @@
                 }
             }
         },
-        "/trip/{tripId}/{flightId}": {
+        "/trip/{tripId}/{refId}": {
             "delete": {
                 "tags": [
                     "Trip"
@@ -156,9 +156,9 @@
                         "type": "integer"
                     },
                     {
-                        "name": "flightId",
+                        "name": "refId",
                         "in": "path",
-                        "description": "the if of the flight to be removed",
+                        "description": "the unique reference id of the flight",
                         "required": true,
                         "type": "integer"
                     }

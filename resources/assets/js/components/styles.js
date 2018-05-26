@@ -25,7 +25,11 @@ export const Content = styled.div`
   }
   >button {
     width: 100%;
+    border-color: rgb(3,170,196);
     background-color: rgb(3,170,196);
+    &:hover{
+      background-color: rgb(3,135,160);
+    }
   }
   button {
     margin: 0 !important;
@@ -79,13 +83,11 @@ injectGlobal`
     position: relative;
   }
 
-  pre {
-    margin: 0;
-  }
+  pre { margin: 0; }
 
   .ribbon-wrap {
     position: relative;
-    width: 90%;
+    width: 95%;
     margin-bottom: 20px;
     margin-left: -15px;
     font-size: 18px;
@@ -133,7 +135,7 @@ injectGlobal`
 
     &:hover,
     &.open {
-      width: 90%;
+      width: 105%;
       transition: width 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
   }

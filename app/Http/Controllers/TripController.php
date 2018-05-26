@@ -209,7 +209,7 @@ class TripController extends Controller
 
     /**
      * @SWG\DELETE(
-     *  path="/trip/{tripId}/{flightId}",
+     *  path="/trip/{tripId}/{refId}",
      *  operationId="removeFlight",
      *  tags={"Trip"},
      *  summary="Remove Flight",
@@ -224,8 +224,8 @@ class TripController extends Controller
      *  ),
      * 
      * @SWG\Parameter(
-     *  name="flightId",
-     *  description="the if of the flight to be removed",
+     *  name="refId",
+     *  description="the unique reference id of the flight",
      *  required=true,
      *  type="integer",
      *  in="path"
@@ -241,18 +241,19 @@ class TripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function removeFlight($tripId, $flightId)
+    public function removeFlight($tripId, $refId)
     {
       $isExist = DB::table('trip_join_flight')
         ->where('trip_id', $tripId)
-        ->where('flight_id', $flightId)
+        ->where('id', $refId)
         ->exists();
       
       if($isExist) {
         DB::table('trip_join_flight')
           ->where('trip_id', $tripId)
-          ->where('flight_id', $flightId);
+          ->where('id', $refId)
+          ->delete();
       }
-      return ['message' => 'success'];
+      return ['message' => 'success', 'trip' => $tripId, 'reference' => $refId ];
     }
 }

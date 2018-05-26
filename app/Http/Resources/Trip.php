@@ -14,19 +14,17 @@ class Trip extends Resource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
-
         return [
-            'id' => $this->id,
-            'from' => $this->from,
-            'to' => $this->to,
+          'refId' => $this->id,
+          'from' => $this->from,
+          'to' => $this->to,
         ];
     }
 
     public function with($request) {
         return [
-            'version' => '1.0.0',
-            'author_url' => url('https://github.com/phuhwei')
+          'version' => '1.0.0',
+          'author_url' => url('https://github.com/phuhwei')
         ];
     }
 }

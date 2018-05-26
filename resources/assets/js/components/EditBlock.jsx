@@ -9,11 +9,13 @@ const getSuggestions = (airports, value) => {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
 
-  if (inputLength === 0) return []
+  if (inputLength === 0) return [];
   const suggestions = airports.filter(item => {
+    if (inputLength === 3 && item.codeIataAirport.toLowerCase() === inputValue) {
+      return true;
+    }
     const staticBank = item.nameAirport.trim().toLowerCase();
-    const index = staticBank.indexOf(inputValue);
-    return index > -1;
+    return staticBank.indexOf(inputValue) > -1;
   })
   if (suggestions.length > 20) return []; // too many result, don't show list.
   return suggestions;
