@@ -7,7 +7,7 @@
 ### Prerequisites
 Composor
 Laravel
-# Edit environment variables in .env and create a corresponding empty database
+Edit environment variables in .env and create a corresponding empty database
 ``` bash
 
 # Install Dependencies
