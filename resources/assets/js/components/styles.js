@@ -1,8 +1,8 @@
 import styled, { injectGlobal } from 'styled-components';
 
 export const Content = styled.div`
-  display: ${props => props.isActive ? 'block' : 'none'};
-  height: ${props => props.isActive ? 'auto' : 0};
+  /* display: ${props => props.isActive ? 'block' : 'none'}; */
+  /* height: ${props => props.isActive ? 'auto' : 0}; */
   background-color: #fff;
   margin-top: 3px;
   margin-right: 40px;
@@ -78,6 +78,23 @@ export const EditBox = styled.div`
 `;
 
 injectGlobal`
+  .fade {
+    transition: ease-in 0.15s;
+    transition-property: opacity, transform;
+  }
+
+  .fade-entering {
+    /* opacity: 0 */
+    transform: translateY(-10%);
+  }
+  .fade-entered {
+    /* opacity: 1 */
+    transform: translateY(0);
+  }
+  .fade-exiting {
+    /* opacity: 1 */
+    transform: translateY(-10%);
+  }
   .box {
     padding: 2em 0;
     position: relative;

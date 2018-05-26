@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Content, SearchBox, EditBox, Flight } from './styles';
-import Select from 'react-select';
+import { SlideDown } from 'react-slidedown'
 import Edit from './EditBlock';
-import {addFlight, getAirports, getFlights, getTrips, deleteFlight } from './request';
+import { Content, SearchBox, EditBox, Flight } from './styles';
+import { addFlight, getAirports, getFlights, getTrips, deleteFlight } from './request';
+import 'react-slidedown/lib/slidedown.css'
 
 
 class Main extends Component {
@@ -40,50 +41,53 @@ class Main extends Component {
                 <pre>Trip#{trip.id}</pre>
               </a>
             </div>
-            <Content isActive={this.state.activeTrip === trip.id} className="box-shadow">
-              {this.state.isEdit
-                ?
-                <EditBox>
-                  <h4>Add Flight</h4>
-                  <Edit scope={this} type="From" />
-                  <Edit scope={this} type="To" />
-                  <div>
-                    <button
-                      className="btn btn-warning mb-1"
-                      onClick={() => this.setState({ isEdit: false })}
-                    >Cancel</button>
+            <SlideDown>
+              {this.state.activeTrip === trip.id &&
+                <Content className="box-shadow" >
+                  {this.state.isEdit
+                    ?
+                    <EditBox>
+                      <h4>Add Flight</h4>
+                      <Edit scope={this} type="From" />
+                      <Edit scope={this} type="To" />
+                      <div>
+                        <button
+                          className="btn btn-warning mb-1"
+                          onClick={() => this.setState({ isEdit: false })}
+                        >Cancel</button>
+                        <button
+                          className="btn btn-primary mb-1"
+                          onClick={() => addFlight(trip.id, this.state.From, this.state.To)
+                            .then(() => this.refreshFlight(trip.id))}
+                        >Save</button>
+                      </div>
+                    </EditBox>
+                    :
                     <button
                       className="btn btn-primary mb-1"
-                      onClick={() => addFlight(trip.id, this.state.From, this.state.To)
-                        .then(() => this.refreshFlight(trip.id))}
-                    >Save</button>
-                  </div>
-                </EditBox>
-                :
-                <button
-                  className="btn btn-primary mb-1"
-                  onClick={() => this.setState({ isEdit: true })}
-                >Add
-                </button>}
-
-              {this.state.flights.map((flight, index) => (
-                <Flight key={flight.refId}>
-                  <div>
-                    <p>Flight#{index + 1}</p>
-                    <pre>From: {flight.from}</pre>
-                    <pre>To:   {flight.to}</pre>
-                  </div>
-                  <button
-                    className="btn btn-danger mb-1"
-                    onClick={() => deleteFlight(trip.id, flight.refId)
-                      .then(() => this.refreshFlight(trip.id))
-                    }
-                  >
-                    Delete
-                  </button>
-                </Flight>
-              ))}
-            </Content>
+                      onClick={() => this.setState({ isEdit: true })}
+                    >Add
+                    </button>}
+                  {this.state.flights.map((flight, index) => (
+                    <Flight key={flight.refId}>
+                      <div>
+                        <p>Flight#{index + 1}</p>
+                        <pre>From: {flight.from}</pre>
+                        <pre>To:   {flight.to}</pre>
+                      </div>
+                      <button
+                        className="btn btn-danger mb-1"
+                        onClick={() => deleteFlight(trip.id, flight.refId)
+                          .then(() => this.refreshFlight(trip.id))
+                        }
+                      >
+                        Delete
+                      </button>
+                    </Flight>
+                  ))}
+                </Content>
+              }
+            </SlideDown>
           </div>
         )}
       </div>);

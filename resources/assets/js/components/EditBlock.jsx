@@ -1,6 +1,5 @@
 import React from 'react';
 import { SearchBox } from './styles';
-import Select from 'react-select';
 import Autosuggest from 'react-autosuggest';
 
 const renderSuggestion = suggestion => <span>{suggestion.nameAirport}</span>;
