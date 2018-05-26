@@ -147,7 +147,7 @@ class TripController extends Controller
     }
 
     /**
-     * @SWG\POST(
+     * @SWG\Post(
      *  path="/trip/{id}/flight",
      *  operationId="addFlight",
      *  tags={"Trip"},
@@ -208,7 +208,7 @@ class TripController extends Controller
     }
 
     /**
-     * @SWG\DELETE(
+     * @SWG\Delete(
      *  path="/trip/{tripId}/{refId}",
      *  operationId="removeFlight",
      *  tags={"Trip"},
