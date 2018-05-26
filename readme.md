@@ -1,4 +1,4 @@
-# Larticles Laravel/Vue App
+# Larticles Laravel/React App
 
 > Laravel 5.5 API that integrate with Swagger with React.js frontend
 
