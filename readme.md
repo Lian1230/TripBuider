@@ -4,17 +4,20 @@
 
 ## Quick Start
 
+### Prerequisites
+Composor
+Laravel
+# Edit environment variables in .env and create a corresponding empty database
 ``` bash
+
 # Install Dependencies
 composer install
 
 # Run Migrations
 php artisan migrate
 
-# Import Articles
+# Create some dummy data
 php artisan db:seed
-
-# Add virtual host if using Apache
 
 # If you get an error about an encryption key
 php artisan key:generate
@@ -28,46 +31,40 @@ npm run watch
 
 ## Endpoints
 
-### List all articles with links and meta
+### Swagger(Open API) documentation
 ``` bash
-GET api/articles
+api/documentation
 ```
-### Get single article
+
+### List all real world airports
 ``` bash
-GET api/article/{id}
+GET api/airports
+(optional)order/query
 ```
 
-### Delete article
+### Get all trips
 ``` bash
-DELETE api/article/{id}
+GET api/trips
 ```
 
-### Add article
+### Get single trip
 ``` bash
-POST api/article
-title/body
+GET api/trip/{id}
 ```
 
-### Update article
+### Get all flights under a trip
 ``` bash
-PUT api/article
-article_id/title/body
+GET api/trip/{id}/flights
 ```
 
-
+### Add flight to a trip
+``` bash
+POST api/trip/{id}/flight
+from/header
+to/header
 ```
 
-## App Info
-
-### Author
-
-Brad Traversy
-[Traversy Media](http://www.traversymedia.com)
-
-### Version
-
-1.0.0
-
-### License
-
-This project is licensed under the MIT License
+### Delete flight from a trip
+``` bash
+DELETE api/trip/{id}/{referenceID}
+```

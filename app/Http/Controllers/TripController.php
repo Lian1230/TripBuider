@@ -148,7 +148,7 @@ class TripController extends Controller
 
     /**
      * @SWG\POST(
-     *  path="/trip/{id}/add",
+     *  path="/trip/{id}/flight",
      *  operationId="addFlight",
      *  tags={"Trip"},
      *  summary="Add Flight",
@@ -225,7 +225,7 @@ class TripController extends Controller
      * 
      * @SWG\Parameter(
      *  name="refId",
-     *  description="the unique reference id of the flight",
+     *  description="the unique reference id of the flight (join table id)",
      *  required=true,
      *  type="integer",
      *  in="path"

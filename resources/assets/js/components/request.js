@@ -9,4 +9,11 @@ export const getTrips = () => fetch(`./api/trips`)
 
 export const deleteFlight = (tripId, refId) => fetch(`./api/trip/${tripId}/${refId}`, { method: 'delete' })
   .then(res => res.json())
-  .then(res=>console.log(res))
+  .then(res => console.log(res))
+
+export const addFlight = (tripId, from, to) => fetch(`./api/trip/${tripId}/flight`,
+  {
+    method: 'post',
+    headers: { from, to }
+  })
+  .then(res => res.json())

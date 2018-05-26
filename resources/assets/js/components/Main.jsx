@@ -2,13 +2,8 @@ import React, { Component } from 'react';
 import { Content, SearchBox, EditBox, Flight } from './styles';
 import Select from 'react-select';
 import Edit from './EditBlock';
-import { getAirports, getFlights, getTrips, deleteFlight } from './request';
+import {addFlight, getAirports, getFlights, getTrips, deleteFlight } from './request';
 
-const addFlight = (tripId, from, to) => fetch(`./api/trip/${tripId}/add`, {
-  method: 'post',
-  headers: { from, to }
-})
-  .then(res => res.json())
 
 class Main extends Component {
   constructor(props) {
