@@ -1,12 +1,11 @@
 # Larticles Laravel/Vue App
 
-> Laravel 5.5 API that uses the API resources with a Vue.js frontend
+> Laravel 5.5 API that integrate with Swagger with React.js frontend
 
 ## Quick Start
 
 ### Prerequisites
-Composor
-Laravel
+install Composor and Laravel 5.5
 Edit environment variables in .env and create a corresponding empty database
 ``` bash
 
