@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-// List trips
+// List trips 
 Route::get('trips', 'TripController@trips');
 
 // List airports
